@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #while run best school now 10x
 i=0
-while [ $i -le 9 ]
+while [ $i -le 10 ]
 do
     echo "Best School"
     ((i++))
