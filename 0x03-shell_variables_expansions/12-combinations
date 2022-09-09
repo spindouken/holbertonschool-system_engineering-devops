@@ -1,0 +1,2 @@
+#!/bin/bash
+echo '/n' [a-z,A-Z] | grep "oo"
