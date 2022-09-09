@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #bin/bash script displaying Best School 10 times
-x=1
-while [ $x -le 10 ]
+i=0
+while ((i<10))
 do
-echo "Best School"
-x=$((x+1))
+    echo "Best School"
+    ((i++))
 done
