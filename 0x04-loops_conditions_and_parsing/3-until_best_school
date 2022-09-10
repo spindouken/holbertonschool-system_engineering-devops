@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # until 10
 i = 10
-until [ $i -lt l ]
+until [ $i -gt 9 ]
 do
-echo "Best School"
-i=$((i-1))
+	echo "Best School"
+	((i++))
 done
