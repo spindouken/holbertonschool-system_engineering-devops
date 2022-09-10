@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# until 10
+i = 10
+until [ $i -lt l ]; do
+echo "Holberton School"
+i=$((i-1))
+done
