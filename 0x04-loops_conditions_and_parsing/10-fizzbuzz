@@ -1,7 +1,7 @@
 #!/var/bin/env bash
 # for 1-100: display FizzBuzz when a mult of 3 and 5, Fizz when a mult of 3, Buzz when mult of 5, otherwise print %i
 i=1
-while [ i <= 100 ]
+while [ $i -le 100 ]
 do
     if ((i%3 == 0))
     then
