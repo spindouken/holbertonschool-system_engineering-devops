@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # until 10
-i = 10
+i = 0
 until [ $i -gt 9 ]
 do
 	echo "Best School"
