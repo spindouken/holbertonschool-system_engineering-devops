@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # does file school exist? if yes, display
 file="school"
-if [ -e "file" ]
+if [ -e "$file" ]
 then
 	echo "$file school file exists"
 	if [ -s "$file" ]
