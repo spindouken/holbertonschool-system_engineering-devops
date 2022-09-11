@@ -8,5 +8,5 @@ do
     then
         echo "Hi"
     fi
-    i=$((i++))
+    $((i++))
 done
