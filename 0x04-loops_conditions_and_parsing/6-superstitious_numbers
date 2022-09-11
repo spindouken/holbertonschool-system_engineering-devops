@@ -9,5 +9,5 @@ do
         8) echo "bad luck from Japan";;
         16) echo "bad luck from Italy";;
     esac
-    $((i++))    
+    ((i++))    
 done
