@@ -7,5 +7,6 @@ do
     if [ $i -eq 8 ]
     then
         echo "Hi"
+    fi
     i=$((i++))
 done
