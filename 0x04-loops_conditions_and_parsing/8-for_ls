@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ls . 
+# diplay file names without #-
 for n in *
 do
     echo "$n" | cut -d '-' -f2
