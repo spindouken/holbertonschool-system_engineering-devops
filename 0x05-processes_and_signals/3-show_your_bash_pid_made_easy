@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# how to display PID of current processes containing "bash", without using ps
+pgrep -l bash
