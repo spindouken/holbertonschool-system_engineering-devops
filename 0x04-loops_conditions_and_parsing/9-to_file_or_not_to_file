@@ -17,4 +17,3 @@ then
 else
 	echo "school file does not exist"
 fi
- 
