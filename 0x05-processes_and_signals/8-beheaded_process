@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Henry VIII
+pkill -SIGKILL -f ./7-highlander
