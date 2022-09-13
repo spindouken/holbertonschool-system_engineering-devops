@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
 # does file school exist? if yes, display
-FILE=school 
-if [ -e "$FILE" ]
+if [ -e school ]
 then
-	echo "$FILE file exists"
-	if [ -s "$FILE" ]
+	echo "school file exists"
+	if [ -s school ]
 	then
-		echo "$FILE is empty"
+		echo "school is not empty"
 	else
-		echo "$FILE is not empty"
+		echo "school is empty"
 	fi
-	if [ -f "$FILE" ]
+	if [ -f school ]
 	then
-		echo "$FILE is a regular file"
+		echo "school is a regular file"
 	fi
 else
-	echo "$FILE does not exist"
+	echo "school  does not exist"
 fi
