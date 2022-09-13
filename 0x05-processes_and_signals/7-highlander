@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # THERE CAN ONLY BE ONE!
 trap "echo 'I am invincible!!!'" SIGTERM
-for ((i=0; i -ge 0; i++))
+for ((i=0; i>=0; i++))
 do
     echo "To infinity and beyond"
     sleep 2
