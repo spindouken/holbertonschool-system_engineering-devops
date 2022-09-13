@@ -2,7 +2,7 @@
 # does file school exist? if yes, display
 if [ -e school ]
 then
-	echo  "school file exists"
+	echo "school file exists"
 	if [ -s school ]
 	then
 		echo "school file is not empty"
@@ -12,7 +12,7 @@ then
 	if [ -f school ]
 	then
 		echo "school file is a regular file"
-	fi 
+	fi
 else
 	echo "school file does not exist"
 fi
