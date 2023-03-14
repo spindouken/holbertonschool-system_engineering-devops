@@ -1,2 +1,5 @@
-IdentityFile ~/.ssh/school
-PasswordAuthentication no
+Host 5541-web-01
+    HostName 15.237.150.77
+    User ubuntu
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no
