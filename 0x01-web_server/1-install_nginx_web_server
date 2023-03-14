@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Install nginx
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get -y install nginx
+# update the package list and install Nginx
+
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
+# create an HTML file with the text "Hello World!"
+# in the new Nginx folder
+
+printf %s "server {
+    listen  80 default_server;
+    listen  [::]:80 default_server;
+    root    /etc/nginx/html;
+    index   index.html;
+}" > /etc/nginx/sites-available/default
+# writes a configuration block for the default server
+# in the Nginx web server to the file '/etc/nginx/sites-available/default'.
+# The configuration block sets the server to listen on port 80
+# for both IPv4 and IPv6, sets the server's root directory 
+# to '/etc/nginx/html', and sets the default index file to 'index.html'.
+# The '>' symbol redirects the output of the 'printf'
+# command to the specified file.
+
+
+sudo service nginx start
+# starts the Nginx service
