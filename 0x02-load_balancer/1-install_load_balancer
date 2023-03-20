@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# I AM CODER YAYA
+
+apt-get update
+apt-get -y upgrade
+apt-get -y install haproxy
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+cat <<EOT > /etc/haproxy/haproxy.cfg
+defaults
+    mode    http
+frontend http-in
+    bind    *:80
+    default_backend servers
+backend servers
+    balance roundrobin
+    server  5541-web-01 15.237.150.77 check
+    server  5541-web-02 13.38.20.126 check
+EOT
+sudo service haproxy restart
