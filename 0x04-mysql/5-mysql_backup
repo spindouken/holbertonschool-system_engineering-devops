@@ -2,5 +2,5 @@
 # Backing up database and compressing to a tar.gz archive
 PASSWORD="shnarf"
 mysqldump -uroot -p"${PASSWORD}" --all-databases > backup.sql
-gzip -c backup.sql > "$(date +"%d-%m-%Y").tar.gz"
 echo 'shnarf'
+gzip -c backup.sql > "$(date +"%d-%m-%Y").tar.gz"
