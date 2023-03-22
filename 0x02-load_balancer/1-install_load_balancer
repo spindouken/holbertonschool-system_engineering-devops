@@ -6,11 +6,26 @@ apt-get -y upgrade
 apt-get -y install haproxy
 echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 cat <<EOT > /etc/haproxy/haproxy.cfg
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    user haproxy
+    group haproxy
+    daemon
+
 defaults
+    log     global
     mode    http
+    option  httplog
+    option  dontlognull
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+
 frontend http-in
     bind    *:80
     default_backend servers
+
 backend servers
     balance roundrobin
     server  5541-web-01 15.237.150.77 check
