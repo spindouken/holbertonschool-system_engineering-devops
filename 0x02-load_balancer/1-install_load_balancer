@@ -2,7 +2,6 @@
 # I AM CODER YAYA
 
 apt-get update
-apt-get -y upgrade
 apt-get -y install haproxy
 echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 cat <<EOT > /etc/haproxy/haproxy.cfg
