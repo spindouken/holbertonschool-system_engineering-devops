@@ -1,20 +1,46 @@
 #!/usr/bin/python3
 """gather data from the JSONPlaceholder API to track the progress
 of an employee's tasks"""
+import requests
 import sys
-from sys import argv
+import urllib
+
+
+def get_employee_todo_progress(employee_id):
+    """doc"""
+    base_url = "https://jsonplaceholder.typicode.com"
+
+    user_response = requests.get("{}/users/{}"
+                                 .format(base_url, employee_id))
+    user_data = user_response.json()
+
+    if 'name' not in user_data:
+        print("Invalid employee ID")
+        return
+
+    todos_response = requests.get("{}/users/{}/todos"
+                                  .format(base_url, employee_id))
+    todos_data = todos_response.json()
+
+    done_tasks = [task for task in todos_data if task["completed"]]
+    total_tasks = len(todos_data)
+
+    print("Employee {} is done with tasks({}/{}): "
+          .format(user_data['name'], len(done_tasks), total_tasks))
+
+    for task in done_tasks:
+        print("\t", task["title"])
 
 
 if __name__ == "__main__":
-    url = "https://jsonplaceholder.typicode.com"
-    usr = requests.get("{}/users/{}".format(url, argv[1]))
-    todo_url_all = requests.get("{}/todos?userId={}".format(url, argv[1]))
-    todo_url = requests.get("{}/todos?userId={}&completed=true"
-                            .format(url, argv[1]))
-    employee_name = usr.json().get("name")
-    count = len([i for i in todo_url.json()])
-    count_o = len([el for el in todo_url_all.json()])
-    print("Employee {} is done with tasks({}/{}):"
-          .format(employee_name, count, count_o))
-    for i in todo_url.json():
-        print("\t {}".format(i.get("title")))
+    if len(sys.argv) != 2:
+        print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
+        sys.exit(1)
+
+    try:
+        employee_id = int(sys.argv[1])
+    except ValueError:
+        print("Employee ID must be an integer")
+        sys.exit(1)
+
+    get_employee_todo_progress(employee_id)
