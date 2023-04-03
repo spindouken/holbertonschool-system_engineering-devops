@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """This script gathers data from the JSONPlaceholder API to track the progress
 of an employee's tasks"""
-
 import sys
 import requests
 
