@@ -5,46 +5,53 @@ import requests
 import sys
 
 
-def export_employee_tasks_to_json(employee_id):
-    # Retrieve employee data from the JSONPlaceholder API
-    employee_data_request = requests.get(
-        f'https://jsonplaceholder.typicode.com/users/{employee_id}'
-    )
-    employee_data = employee_data_request.json()
+if __name__ == "__main__":
+    """Main function to retrieve and export a
+    user's tasks from JSONPlaceholder API.
 
-    # Retrieve employee tasks from the JSONPlaceholder API
-    employee_tasks_request = requests.get(
-        f'https://jsonplaceholder.typicode.com/todos?userId={employee_id}'
-    )
-    employee_tasks = employee_tasks_request.json()
+    Retrieves data from the JSONPlaceholder API
+    for a specific user's tasks based on the user
+    ID provided as a command-line argument...
+    ...then creates a dictionary where the keys
+    correspond to the user ID and the values
+    correspond to a list of dictionaries,
+    where each dictionary corresponds to a task
+    and contains information such as the task title,
+    completion status, and username.
+    Finally, it writes the dictionary to a JSON file
+    named after the user ID.
+    """
 
-    # Prepare data for JSON export
-    tasks = []
-    for task in employee_tasks:
-        tasks.append({
-            "task": task["title"],
-            "completed": task["completed"],
-            "username": employee_data["username"]
-        })
-    json_data = {str(employee_id): tasks}
+    user_id = sys.argv[1]
 
-    # Export JSON data to a file named after the employee ID
-    with open(f'{employee_id}.json', 'w') as json_file:
-        json.dump(json_data, json_file)
+    # create Response object for specific user and that user's tasks
+    url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
+    user_response = requests.get(url)
 
+    url = 'https://jsonplaceholder.typicode.com/todos/?userId={}'\
+        .format(user_id)
+    todo_response = requests.get(url)
 
-if __name__ == '__main__':
-    # Check if the user has provided an employee ID
-    if len(sys.argv) != 2:
-        print("Usage: python3 employee_task_exporter.py <employee_id>")
-        sys.exit(1)
+    # create Dictionary objects from response objects
+    user_info = json.loads(user_response.text)
+    todo_info = json.loads(todo_response.text)
 
-    # Convert the employee ID to an integer
-    try:
-        employee_id = int(sys.argv[1])
-    except ValueError:
-        print("Employee ID must be an integer.")
-        sys.exit(1)
+    tasks = {}
 
-    # Call the function to export the employee's tasks to a JSON file
-    export_employee_tasks_to_json(employee_id)
+    tasks_list = []
+
+    # create a dictionary for each task and add it to the list of tasks
+    for task in todo_info:
+        task_dict = {}
+        task_dict['task'] = task['title']
+        task_dict['completed'] = task['completed']
+        task_dict['username'] = user_info['username']
+        tasks_list.append(task_dict)
+
+    # add list of tasks to dictionary
+    tasks[user_id] = tasks_list
+
+    # write dictionary to a JSON file
+    with open('./{}.json'.format(user_id), 'w', encoding='UTF8',
+              newline='') as f:
+        f.write(json.dumps(tasks))
