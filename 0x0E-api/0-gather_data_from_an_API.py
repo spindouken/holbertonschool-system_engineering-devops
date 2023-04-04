@@ -6,6 +6,7 @@ import sys
 
 
 def get_employee_todo_progress(employee_id):
+    """docstring placeholder"""
     # Make a GET request to retrieve the employee data
     employee_data_request = requests.get(
         f'https://jsonplaceholder.typicode.com/users/{employee_id}'
