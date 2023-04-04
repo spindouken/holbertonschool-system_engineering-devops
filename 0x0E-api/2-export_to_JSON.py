@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """exports an employee's tasks to a JSON file"""
-import sys
-import requests
 import json
+import requests
+import sys
 
 
 def export_employee_tasks_to_json(employee_id):

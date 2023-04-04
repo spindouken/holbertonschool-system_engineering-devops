@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """exports an employee's tasks to a CSV file"""
-import sys
-import requests
 import csv
+import requests
+import sys
 
 
 def export_employee_tasks_to_csv(employee_id):
