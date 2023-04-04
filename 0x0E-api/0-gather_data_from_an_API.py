@@ -3,51 +3,45 @@
 of an employee's tasks"""
 import requests
 import sys
+import urllib
 
 
 def get_employee_todo_progress(employee_id):
     """docstring placeholder"""
     # Make a GET request to retrieve the employee data
-    employee_data_request = requests.get(
-        f'https://jsonplaceholder.typicode.com/users/{employee_id}'
-    )
-    employee_data = employee_data_request.json()
+    base_url = "https://jsonplaceholder.typicode.com"
 
-    # Make a GET request to retrieve the employee's tasks
-    employee_tasks_request = requests.get(
-        f'https://jsonplaceholder.typicode.com/todos?userId={employee_id}'
-    )
-    employee_tasks = employee_tasks_request.json()
+    user_response = requests.get("{}/users/{}"
+                                 .format(base_url, employee_id))
+    user_data = user_response.json()
 
-    # Count the number of completed tasks
-    completed_tasks = [task for task in employee_tasks if task['completed']]
+    if 'name' not in user_data:
+        print("Invalid employee ID")
+        return
 
-    # Display the results
-    employee_name = employee_data['name']
-    num_completed_tasks = len(completed_tasks)
-    num_total_tasks = len(employee_tasks)
+    todos_response = requests.get("{}/users/{}/todos"
+                                  .format(base_url, employee_id))
+    todos_data = todos_response.json()
 
-    print(
-        f"Employee {employee_name} has completed {num_completed_tasks} out of "
-        f"{num_total_tasks} tasks:"
-    )
+    done_tasks = [task for task in todos_data if task["completed"]]
+    total_tasks = len(todos_data)
 
-    for task in completed_tasks:
-        print(f"\t {task['title']}")
+    print("Employee {} is done with tasks({}/{}): "
+          .format(user_data['name'], len(done_tasks), total_tasks))
+
+    for task in done_tasks:
+        print("\t", task["title"])
 
 
-if __name__ == '__main__':
-    # Check if the user has provided an employee ID
+if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 employee_task_tracker.py <employee_id>")
+        print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
         sys.exit(1)
 
-    # Convert the employee ID to an integer
     try:
         employee_id = int(sys.argv[1])
     except ValueError:
-        print("Employee ID must be an integer.")
+        print("Employee ID must be an integer")
         sys.exit(1)
 
-    # Call the function to track the employee's task progress
     get_employee_todo_progress(employee_id)
